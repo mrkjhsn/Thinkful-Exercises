@@ -25,6 +25,9 @@ ORDER BY state
 
 SELECT state 
 	,round(avg(avg_math_4_score), 2)
+	,count(avg_math_4_score)
+	,min(avg_math_4_score)
+	,max(avg_math_4_score)
 FROM public.naep
 GROUP BY state
 HAVING max(avg_math_4_score) - min(avg_math_4_score) > 30
@@ -80,7 +83,7 @@ SELECT neap_.state
 FROM public.naep as neap_
 LEFT OUTER JOIN public.finance as finance_
 ON finance_.id = neap_.id
-WHERE neap_.avg_math_4_score is not null
+WHERE neap_.avg_math_4_score is not null and neap_.year = 2000
 ORDER BY finance_.total_expenditure desc
 
 
